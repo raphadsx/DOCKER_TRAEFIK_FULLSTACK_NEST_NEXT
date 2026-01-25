@@ -1,0 +1,125 @@
+secrets:
+  jwt_secret:
+    file: ./secrets/jwt_secret.txt
+  db_password:
+    file: ./secrets/db_password.txt
+  redis_password:
+    file: ./secrets/redis_password.txt
+services:
+  # 🚀 Traefik - Reverse Proxy
+  traefik:
+    image: traefik:v3.0
+    container_name: atlas_traefik
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./infrastructure/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./infrastructure/traefik/dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - traefik_certs:/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8081:8080" # Dashboard
+    networks:
+      - atlas_proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.${DOMAIN:-atlas.local}`)"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.entrypoints=web"
+
+  # 🚀 Redis
+  redis:
+    image: redis:8.2.1-alpine
+    container_name: atlas_redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    networks:
+      - atlas_net
+    healthcheck:
+      test: [ "CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 🚀 Backend (NestJS + Encore.ts)
+  backend:
+    build: ./services/backend
+    container_name: atlas_backend
+    restart: unless-stopped
+    environment:
+      - PORT=${BACKEND_PORT}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - SSL_MODE=require
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - atlas_net
+      - atlas_proxy
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "-q", "http://localhost:${BACKEND_PORT}/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=atlas_proxy"
+      - "traefik.http.routers.backend.rule=(Host(`${DOMAIN:-atlas.local}`) || Host(`localhost`)) && PathPrefix(`/api/v1`)"
+      - "traefik.http.routers.backend.entrypoints=web"
+      - "traefik.http.routers.backend-secure.rule=(Host(`${DOMAIN:-atlas.local}`) || Host(`localhost`)) && PathPrefix(`/api/v1`)"
+      - "traefik.http.routers.backend-secure.entrypoints=websecure"
+      - "traefik.http.routers.backend-secure.tls=true"
+      - "traefik.http.services.backend.loadbalancer.server.port=${BACKEND_PORT}"
+
+  # 🚀 Frontend (Next.js + Rsbuild)
+  frontend:
+    build:
+      context: ./services/frontend
+      args:
+        - VITE_API_URL=${VITE_API_URL}
+        - ROOT_PUBLIC_ENV=${ROOT_PUBLIC_ENV:-development}
+        - NODE_ENV=${NODE_ENV:-development}
+    container_name: atlas_frontend
+    restart: unless-stopped
+    environment:
+      - PORT=${FRONTEND_PORT}
+      - NODE_ENV=${NODE_ENV:-development}
+      - ROOT_PUBLIC_ENV=${ROOT_PUBLIC_ENV:-development}
+    networks:
+      - atlas_proxy
+    healthcheck:
+      test: [ "CMD-SHELL", "pgrep bun || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=atlas_proxy"
+      - "traefik.http.routers.frontend.rule=(Host(`${DOMAIN:-atlas.local}`) || Host(`localhost`)) && !PathPrefix(`/api`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.routers.frontend-secure.rule=(Host(`${DOMAIN:-atlas.local}`) || Host(`localhost`)) && !PathPrefix(`/api`)"
+      - "traefik.http.routers.frontend-secure.entrypoints=websecure"
+      - "traefik.http.routers.frontend-secure.tls=true"
+      - "traefik.http.routers.frontend.priority=1"
+      - "traefik.http.services.frontend.loadbalancer.server.port=${FRONTEND_PORT}"
+
+volumes:
+  redis_data:
+    driver: local
+  traefik_certs:
+    driver: local
+
+networks:
+  atlas_net:
+    external: true
+  atlas_proxy:
+    external: true
